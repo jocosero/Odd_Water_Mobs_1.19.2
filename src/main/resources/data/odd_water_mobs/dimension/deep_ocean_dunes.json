@@ -1,0 +1,37 @@
+{
+  "type": "odd_water_mobs:deep_ocean_dunes",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -1259542202,
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "minecraft:deep_ocean",
+          "parameters": {
+            "temperature": 0.4,
+            "humidity": 2,
+            "continentalness": 0,
+            "erosion": 0.2,
+            "weirdness": 0.3,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "minecraft:deep_ocean",
+          "parameters": {
+            "temperature": 0.4,
+            "humidity": 2,
+            "continentalness": 0,
+            "erosion": 0.2,
+            "weirdness": 0.3,
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

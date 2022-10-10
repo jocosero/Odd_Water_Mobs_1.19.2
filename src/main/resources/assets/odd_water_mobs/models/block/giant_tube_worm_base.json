@@ -1,0 +1,6 @@
+{
+  "parent": "block/crop",
+  "textures": {
+    "crop": "odd_water_mobs:block/tube_worm_base"
+  }
+}

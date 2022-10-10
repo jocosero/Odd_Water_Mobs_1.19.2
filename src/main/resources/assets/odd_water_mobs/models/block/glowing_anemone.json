@@ -1,0 +1,9 @@
+{
+  "parent": "odd_water_mobs:custom/glowing_anemone",
+  "textures": {
+    "all": "odd_water_mobs:block/glowing_anemone",
+    "particle": "odd_water_mobs:block/glowing_anemone",
+    "1": "odd_water_mobs:block/glowing_anemone",
+    "2": "odd_water_mobs:block/glowing_anemone"
+  }
+}

@@ -11,12 +11,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -41,12 +36,12 @@ public abstract class OddWaterMob extends WaterAnimal implements Bucketable {
         this.moveControl = new OddWaterMob.FishMoveControl(this);
     }
 
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
-        return pSize.height * 0.65F;
-    }
-
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3.0D);
+    }
+
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+        return pSize.height * 0.65F;
     }
 
     public boolean requiresCustomPersistence() {
@@ -108,6 +103,7 @@ public abstract class OddWaterMob extends WaterAnimal implements Bucketable {
         }
 
     }
+
     public void aiStep() {
         if (!this.isInWater()) {
             this.setDeltaMovement(this.getDeltaMovement());
@@ -159,18 +155,18 @@ public abstract class OddWaterMob extends WaterAnimal implements Bucketable {
             }
 
             if (this.operation == MoveControl.Operation.MOVE_TO && !this.fish.getNavigation().isDone()) {
-                float f = (float)(this.speedModifier * this.fish.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                float f = (float) (this.speedModifier * this.fish.getAttributeValue(Attributes.MOVEMENT_SPEED));
                 this.fish.setSpeed(Mth.lerp(0.125F, this.fish.getSpeed(), f));
                 double d0 = this.wantedX - this.fish.getX();
                 double d1 = this.wantedY - this.fish.getY();
                 double d2 = this.wantedZ - this.fish.getZ();
                 if (d1 != 0.0D) {
                     double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                    this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, (double)this.fish.getSpeed() * (d1 / d3) * 0.1D, 0.0D));
+                    this.fish.setDeltaMovement(this.fish.getDeltaMovement().add(0.0D, (double) this.fish.getSpeed() * (d1 / d3) * 0.1D, 0.0D));
                 }
 
                 if (d0 != 0.0D || d2 != 0.0D) {
-                    float f1 = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
+                    float f1 = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
                     this.fish.setYRot(this.rotlerp(this.fish.getYRot(), f1, 90.0F));
                     this.fish.yBodyRot = this.fish.getYRot();
                 }
@@ -180,6 +176,7 @@ public abstract class OddWaterMob extends WaterAnimal implements Bucketable {
             }
         }
     }
+
     static class FishSwimGoal extends RandomSwimmingGoal {
         private final OddWaterMob fish;
 

@@ -1,5 +1,6 @@
 {
   "parent": "block/crop",
+  "render_type": "minecraft:cutout",
   "textures": {
     "crop": "odd_water_mobs:block/tube_worm_base"
   }

@@ -25,26 +25,30 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
-public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
+
+public class AnglerfishEntity extends OddWaterMob implements IAnimatable {
 
     private static final EntityDataAccessor<Boolean> PUFFED = SynchedEntityData.defineId(AnglerfishEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT =
             SynchedEntityData.defineId(AnglerfishEntity.class, EntityDataSerializers.INT);
-    private AnimationFactory factory = new AnimationFactory(this);
+    public AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public AnglerfishEntity(EntityType<? extends OddWaterMob> entityType, Level level) {
         super(entityType, level);
     }
 
-    public static AttributeSupplier setAttributes() {return OddWaterMob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 4.0D)
-            .add(Attributes.ATTACK_DAMAGE, 2.0f)
-            .add(Attributes.ATTACK_SPEED, 2.0f)
-            .add(Attributes.MOVEMENT_SPEED, 0.35f).build();
+    public static AttributeSupplier setAttributes() {
+        return OddWaterMob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0D)
+                .add(Attributes.ATTACK_DAMAGE, 2.0f)
+                .add(Attributes.ATTACK_SPEED, 2.0f)
+                .add(Attributes.MOVEMENT_SPEED, 0.35f).build();
     }
 
     @Override
@@ -106,6 +110,7 @@ public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
         }
 
     }
+
     public void aiStep() {
         if (!this.isUnderWater()) {
             this.setDeltaMovement(this.getDeltaMovement());
@@ -113,10 +118,12 @@ public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
 
         super.aiStep();
     }
+
     @Override
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return pSize.height * 0.45F;
     }
+
     @Override
     protected SoundEvent getFlopSound() {
         return null;
@@ -125,23 +132,25 @@ public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
     protected SoundEvent getSwimSound() {
         return SoundEvents.FISH_SWIM;
     }
+
     @Override
-    public ItemStack getBucketItemStack()  {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(ModItems.ANGLERFISH_BUCKET.get());
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving() && !this.isPuffed()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.swim", LOOP));
             return PlayState.CONTINUE;
         }
         if (this.isPuffed()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.puffed", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.puffed", LOOP));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.anglerfish.idle", LOOP));
         return PlayState.CONTINUE;
     }
+
     public void tick() {
         super.tick();
         if (!isUnderWater()) {
@@ -153,11 +162,13 @@ public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
             this.setPuffed(false);
         }
     }
+
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController(this, "controller",
                 2, this::predicate));
     }
+
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
@@ -188,7 +199,7 @@ public class AnglerfishEntity  extends OddWaterMob implements IAnimatable {
         } else {
             AnglerfishVariant variant = AnglerfishVariant.DEFAULT;
         }
-        return super.finalizeSpawn(pLevel,pDifficulty,pReason,pSpawnData,pDataTag);
+        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     public AnglerfishVariant getVariant() {

@@ -8,23 +8,22 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class IsopodModel extends AnimatedGeoModel<IsopodEntity> {
     @Override
-    public ResourceLocation getModelLocation(IsopodEntity object) {
+    public ResourceLocation getModelResource(IsopodEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "geo/isopod.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(IsopodEntity object) {
+    public ResourceLocation getTextureResource(IsopodEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "textures/entity/isopod.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(IsopodEntity animatable) {
+    public ResourceLocation getAnimationResource(IsopodEntity animatable) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "animations/isopod.animation.json");
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void setLivingAnimations(IsopodEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(IsopodEntity animatable, int instanceId, AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
     }
 }

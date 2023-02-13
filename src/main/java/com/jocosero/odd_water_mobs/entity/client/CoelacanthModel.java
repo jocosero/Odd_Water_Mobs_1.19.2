@@ -8,22 +8,22 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class CoelacanthModel extends AnimatedGeoModel<CoelacanthEntity> {
     @Override
-    public ResourceLocation getModelLocation(CoelacanthEntity object) {
+    public ResourceLocation getModelResource(CoelacanthEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "geo/coelacanth.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CoelacanthEntity object) {
+    public ResourceLocation getTextureResource(CoelacanthEntity object) {
         return new ResourceLocation (OddWaterMobs.MOD_ID, "textures/entity/coelacanth.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(CoelacanthEntity animatable) {
+    public ResourceLocation getAnimationResource(CoelacanthEntity animatable) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "animations/coelacanth.animation.json");
     }
 
     @Override
-    public void setLivingAnimations(CoelacanthEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(CoelacanthEntity animatable, int instanceId, AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
     }
 }

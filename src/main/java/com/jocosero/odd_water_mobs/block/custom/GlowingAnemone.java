@@ -100,11 +100,6 @@ public class GlowingAnemone extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public BlockPathTypes getAiPathNodeType(BlockState state, BlockGetter world, BlockPos pos, Mob entity) {
-        return BlockPathTypes.WALKABLE;
-    }
-
-    @Override
     public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.DESTROY;
     }

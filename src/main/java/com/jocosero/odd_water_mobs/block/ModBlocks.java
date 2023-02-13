@@ -35,20 +35,17 @@ public class ModBlocks {
                     .strength(0.8f)
                     .sound(SoundType.STONE)
                     .requiresCorrectToolForDrops()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
-
-    public static final RegistryObject<Block> DEEP_SANDSTONE_SLAB = registerBlock("deep_sandstone_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND)
-                    .strength(0.8f)
-                    .sound(SoundType.STONE)
-                    .requiresCorrectToolForDrops()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
-
     public static final RegistryObject<Block> DEEP_SANDSTONE_STAIRS = registerBlock("deep_sandstone_stairs",
             () -> new StairBlock(() -> DEEP_SANDSTONE.get().defaultBlockState(),
                     BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND)
                             .strength(0.8f)
                             .sound(SoundType.STONE)
                             .requiresCorrectToolForDrops()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
-
+    public static final RegistryObject<Block> DEEP_SANDSTONE_SLAB = registerBlock("deep_sandstone_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND)
+                    .strength(0.8f)
+                    .sound(SoundType.STONE)
+                    .requiresCorrectToolForDrops()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
     public static final RegistryObject<Block> DEEP_SANDSTONE_WALL = registerBlock("deep_sandstone_wall",
             () -> new WallBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SAND)
                     .strength(0.8f)
@@ -103,12 +100,13 @@ public class ModBlocks {
                     .hasPostProcess((bs, br, bp) -> true)
                     .emissiveRendering((bs, br, bp) -> true)
                     .instabreak()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
+
     public static final RegistryObject<Block> BIOLUMINESCENT_BLOCK = registerBlock("bioluminescent_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.CLAY, MaterialColor.SAND)
                     .lightLevel((state) -> {
-                       return 6;
+                        return 6;
                     })
-                    .strength(0.5f,0.3f)
+                    .strength(0.5f, 0.3f)
                     .sound(SoundType.NETHER_WART)
                     .hasPostProcess((bs, br, bp) -> true)
                     .emissiveRendering((bs, br, bp) -> true)), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
@@ -131,7 +129,7 @@ public class ModBlocks {
                     .emissiveRendering((bs, br, bp) -> true)), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
 
     public static final RegistryObject<Block> HYDROTHERMAL_VENT = registerBlock("hydrothermal_vent",
-            () -> new HydrothermalVent(true, 1,BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GREEN)
+            () -> new HydrothermalVent(true, 1, BlockBehaviour.Properties.of(Material.STONE, MaterialColor.TERRACOTTA_GREEN)
                     .strength(1.3f)
                     .sound(SoundType.BASALT)
                     .requiresCorrectToolForDrops()), ModCreativeModeTab.ODD_WATER_MOBS_TAB);
@@ -143,14 +141,14 @@ public class ModBlocks {
         return toReturn;
     }
 
-    private static <T extends Block>RegistryObject<Item> registerBlockItem (String name, RegistryObject<T> block,
+    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block,
                                                                             CreativeModeTab tab) {
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
                 new Item.Properties().tab(tab)));
     }
 
 
-    public static void register (IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }
 }

@@ -12,7 +12,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,13 +23,16 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
 
 
 public class CoelacanthEntity extends OddWaterMob implements IAnimatable {
 
     private static final EntityDataAccessor<Boolean> STRANDED = SynchedEntityData.defineId(CoelacanthEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private AnimationFactory factory = new AnimationFactory(this);
+    public AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public CoelacanthEntity(EntityType<? extends OddWaterMob> entityType, Level level) {
         super(entityType, level);
@@ -137,14 +139,14 @@ public class CoelacanthEntity extends OddWaterMob implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving() && !this.isStranded()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.swim", LOOP));
             return PlayState.CONTINUE;
         }
         if (this.isStranded()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.stranded", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.stranded", LOOP));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.coelacanth.idle", LOOP));
         return PlayState.CONTINUE;
     }
 

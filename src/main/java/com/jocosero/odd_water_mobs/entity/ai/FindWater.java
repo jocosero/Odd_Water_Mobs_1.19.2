@@ -1,20 +1,18 @@
 package com.jocosero.odd_water_mobs.entity.ai;
 
 import com.jocosero.odd_water_mobs.entity.SeafloorAnimal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
 
 import java.util.EnumSet;
 import java.util.Random;
 
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
-
 public class FindWater extends Goal {
     private final PathfinderMob creature;
-    private BlockPos targetPos;
     private final int executionChance = 30;
+    private BlockPos targetPos;
 
     public FindWater(PathfinderMob creature) {
         this.creature = creature;
@@ -55,8 +53,8 @@ public class FindWater extends Goal {
         BlockPos blockpos = null;
         final Random random = new Random();
         final int range = this.creature instanceof SeafloorAnimal ? ((SeafloorAnimal) this.creature).getWaterSearchRange() : 14;
-        for(int i = 0; i < 15; i++) {
-            BlockPos blockPos = this.creature.blockPosition().offset(random.nextInt(range) - range/2, 3, random.nextInt(range) - range/2);
+        for (int i = 0; i < 15; i++) {
+            BlockPos blockPos = this.creature.blockPosition().offset(random.nextInt(range) - range / 2, 3, random.nextInt(range) - range / 2);
             while (this.creature.level.isEmptyBlock(blockPos) && blockPos.getY() > 1) {
                 blockPos = blockPos.below();
             }

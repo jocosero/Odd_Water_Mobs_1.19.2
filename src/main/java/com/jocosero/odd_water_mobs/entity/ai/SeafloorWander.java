@@ -1,12 +1,12 @@
 package com.jocosero.odd_water_mobs.entity.ai;
 
 import com.jocosero.odd_water_mobs.entity.SeafloorAnimal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -29,7 +29,7 @@ public class SeafloorWander extends RandomStrollGoal {
         this.range = range;
     }
 
-    public boolean canUse(){
+    public boolean canUse() {
         if (mob instanceof SeafloorAnimal && ((SeafloorAnimal) mob).shouldStopMoving()) {
             return false;
         }
@@ -46,7 +46,7 @@ public class SeafloorWander extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        if(this.mob.isInWater()) {
+        if (this.mob.isInWater()) {
             BlockPos blockpos = null;
             Random random = new Random();
             for (int i = 0; i < 15; i++) {
@@ -60,13 +60,13 @@ public class SeafloorWander extends RandomStrollGoal {
             }
 
             return blockpos != null ? new Vec3(blockpos.getX() + 0.5F, blockpos.getY() + 0.5F, blockpos.getZ() + 0.5F) : null;
-        }else{
+        } else {
             return super.getPosition();
 
         }
     }
 
-    private boolean isBottomOfSeafloor(LevelAccessor world, BlockPos pos){
+    private boolean isBottomOfSeafloor(LevelAccessor world, BlockPos pos) {
         return world.getFluidState(pos).is(FluidTags.WATER) && world.getFluidState(pos.below()).isEmpty() && world.getBlockState(pos.below()).canOcclude();
     }
 }

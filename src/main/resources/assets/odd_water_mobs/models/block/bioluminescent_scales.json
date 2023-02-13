@@ -1,5 +1,6 @@
 {
 	"ambientocclusion": false,
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"particle": "odd_water_mobs:block/bioluminescent_scales",
 		"bioluminescent_scales": "odd_water_mobs:block/bioluminescent_scales"

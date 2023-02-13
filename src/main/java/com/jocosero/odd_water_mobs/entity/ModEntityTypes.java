@@ -15,7 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
-            DeferredRegister.create(ForgeRegistries.ENTITIES, OddWaterMobs.MOD_ID);
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, OddWaterMobs.MOD_ID);
 
     public static final RegistryObject<EntityType<AnglerfishEntity>> ANGLERFISH =
             ENTITY_TYPES.register("anglerfish",
@@ -41,7 +41,7 @@ public class ModEntityTypes {
                             .sized(1.0f, 0.6f)
                             .build(new ResourceLocation(OddWaterMobs.MOD_ID, "coelacanth").toString()));
 
-    public static void register (IEventBus eventBus) {
+    public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }
 }

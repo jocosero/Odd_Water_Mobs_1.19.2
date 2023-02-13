@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,20 +42,22 @@ public class HydrothermalVent extends Block {
         super.onPlace(blockstate, world, pos, oldState, moving);
         world.scheduleTick(pos, this, 2);
     }
+
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random rand) {
-        if ((level.getBlockState(new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()))).getBlock() == Blocks.MAGMA_BLOCK) {
-            level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + rand.nextFloat(), rand.nextFloat() * 0.7F + 0.6F, false);
-            double d0 = (float) pos.getX() + (rand.nextFloat() - 0.12);
-            double d1 = ((float) pos.getY() + 0.5) + (rand.nextFloat() - 0.5);
-            double d2 = (float) pos.getZ() + (rand.nextFloat() - 0.12);
-            level.addParticle(ParticleTypes.BUBBLE, d0, d1, d2, 0, 0, 0);
-            if (pos.getY() <= 40) {
-                level.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.02, 0.02, 0.02);
-                level.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.001, 0.10, 0.001);
-                level.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.001, 0.06, 0.001);
-                level.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.006, 0.08, 0.006);
+    public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
+        if ((pLevel.getBlockState(new BlockPos(pPos.getX(), pPos.getY() - 1, pPos.getZ()))).getBlock() == Blocks.MAGMA_BLOCK) {
+            pLevel.playLocalSound((double) pPos.getX() + 0.5D, (double) pPos.getY() + 0.5D, (double) pPos.getZ() + 0.5D, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5F + pRandom.nextFloat(), pRandom.nextFloat() * 0.7F + 0.6F, false);
+            double d0 = (float) pPos.getX() + (pRandom.nextFloat() - 0.12);
+            double d1 = ((float) pPos.getY() + 0.5) + (pRandom.nextFloat() - 0.5);
+            double d2 = (float) pPos.getZ() + (pRandom.nextFloat() - 0.12);
+            pLevel.addParticle(ParticleTypes.BUBBLE, d0, d1, d2, 0, 0, 0);
+            if (pPos.getY() <= 40) {
+                pLevel.addParticle(ParticleTypes.LARGE_SMOKE, d0, d1, d2, 0.02, 0.02, 0.02);
+                pLevel.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.001, 0.10, 0.001);
+                pLevel.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.001, 0.06, 0.001);
+                pLevel.addParticle(ModParticles.HYDROTHERMAL_SMOKE.get(), d0, d1, d2, 0.006, 0.08, 0.006);
             }
         }
     }
+
 }

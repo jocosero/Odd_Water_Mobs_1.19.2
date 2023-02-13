@@ -10,26 +10,26 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 public class AnglerfishModel extends AnimatedGeoModel<AnglerfishEntity> {
     @Override
-    public ResourceLocation getModelLocation(AnglerfishEntity object) {
+    public ResourceLocation getModelResource(AnglerfishEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "geo/anglerfish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(AnglerfishEntity object) {
+    public ResourceLocation getTextureResource(AnglerfishEntity object) {
         return AnglerfishRenderer.LOCATION_BY_VARIANT.get(object.getVariant());
     }
     @Override
-    public ResourceLocation getAnimationFileLocation(AnglerfishEntity animatable) {
+    public ResourceLocation getAnimationResource(AnglerfishEntity animatable) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "animations/anglerfish.animation.json");
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+
     @Override
-    public void setLivingAnimations(AnglerfishEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(AnglerfishEntity animatable, int instanceId, AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
         IBone body = this.getAnimationProcessor().getBone("body");
 
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+        EntityModelData extraData = (EntityModelData) animationEvent.getExtraDataOfType(EntityModelData.class).get(0);
         if (body != null) {
             body.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F));
         }

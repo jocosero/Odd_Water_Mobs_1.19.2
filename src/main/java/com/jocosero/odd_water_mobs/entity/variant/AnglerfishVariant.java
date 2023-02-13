@@ -17,11 +17,11 @@ public enum AnglerfishVariant {
         this.id = id;
     }
 
-    public int getId() {
-        return this.id;
-    }
-
     public static AnglerfishVariant byId(int id) {
         return BY_ID[id % BY_ID.length];
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

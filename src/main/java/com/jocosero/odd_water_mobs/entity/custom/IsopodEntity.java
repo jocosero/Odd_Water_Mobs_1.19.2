@@ -35,21 +35,26 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
+
+import static software.bernie.geckolib3.core.builder.ILoopType.EDefaultLoopTypes.LOOP;
 
 public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimatable {
-    private AnimationFactory factory = new AnimationFactory(this);
-    public static AttributeSupplier setAttributes() {return OddWaterMob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 6.0f)
-            .add(Attributes.ARMOR, 2.2f)
-            .add(Attributes.ATTACK_DAMAGE, 2.0f)
-            .add(Attributes.ATTACK_SPEED, 2.0f)
-            .add(Attributes.MOVEMENT_SPEED, 0.15f).build();
-    }
+    public AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public IsopodEntity(EntityType type, Level level) {
         super(type, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+    }
+
+    public static AttributeSupplier setAttributes() {
+        return OddWaterMob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 6.0f)
+                .add(Attributes.ARMOR, 2.2f)
+                .add(Attributes.ATTACK_DAMAGE, 2.0f)
+                .add(Attributes.ATTACK_SPEED, 2.0f)
+                .add(Attributes.MOVEMENT_SPEED, 0.15f).build();
     }
 
     protected void registerGoals() {
@@ -64,6 +69,7 @@ public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimat
     public MobType getMobType() {
         return MobType.ARTHROPOD;
     }
+
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
@@ -78,6 +84,7 @@ public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimat
     protected void defineSynchedData() {
         super.defineSynchedData();
     }
+
     protected void handleAirSupply(int air) {
     }
 
@@ -86,10 +93,10 @@ public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimat
         if (this.isEffectiveAi() && this.isInWater()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
-            if(this.jumping){
+            if (this.jumping) {
                 this.setDeltaMovement(this.getDeltaMovement().scale(1.4D));
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.9D, 0.0D));
-            }else{
+            } else {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.4D));
                 this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.01D, 0.0D));
             }
@@ -103,10 +110,12 @@ public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimat
     public float getWalkTargetValue(BlockPos pos, LevelReader worldIn) {
         return worldIn.getFluidState(pos.below()).isEmpty() && worldIn.getFluidState(pos).is(FluidTags.WATER) ? 10.0F : super.getWalkTargetValue(pos, worldIn);
     }
+
     @Override
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return pSize.height * 0.3F;
     }
+
     @Override
     protected SoundEvent getFlopSound() {
         return null;
@@ -115,28 +124,31 @@ public class IsopodEntity extends OddWaterMob implements SeafloorAnimal, IAnimat
     protected SoundEvent getSwimSound() {
         return SoundEvents.FISH_SWIM;
     }
+
     @Override
-    public ItemStack getBucketItemStack()  {
+    public ItemStack getBucketItemStack() {
         return new ItemStack(ModItems.ISOPOD_BUCKET.get());
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if ((!this.isOnGround() && this.isUnderWater()) && event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.swim", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.swim", LOOP));
             return PlayState.CONTINUE;
         }
         if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.walk", true));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.walk", LOOP));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.idle", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.isopod.idle", LOOP));
         return PlayState.CONTINUE;
     }
+
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController(this, "controller",
                 2, this::predicate));
     }
+
     @Override
     public AnimationFactory getFactory() {
         return this.factory;

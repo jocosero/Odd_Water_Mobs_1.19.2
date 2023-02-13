@@ -8,23 +8,22 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class HorseshoeCrabModel extends AnimatedGeoModel<HorseshoeCrabEntity> {
     @Override
-    public ResourceLocation getModelLocation(HorseshoeCrabEntity object) {
+    public ResourceLocation getModelResource(HorseshoeCrabEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "geo/horseshoe_crab.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(HorseshoeCrabEntity object) {
+    public ResourceLocation getTextureResource(HorseshoeCrabEntity object) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "textures/entity/horseshoe_crab.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(HorseshoeCrabEntity animatable) {
+    public ResourceLocation getAnimationResource(HorseshoeCrabEntity animatable) {
         return new ResourceLocation(OddWaterMobs.MOD_ID, "animations/horseshoe_crab.animation.json");
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void setLivingAnimations(HorseshoeCrabEntity entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(HorseshoeCrabEntity animatable, int instanceId, AnimationEvent animationEvent) {
+        super.setCustomAnimations(animatable, instanceId, animationEvent);
     }
 }

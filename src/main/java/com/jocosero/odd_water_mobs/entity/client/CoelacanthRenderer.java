@@ -1,7 +1,6 @@
 package com.jocosero.odd_water_mobs.entity.client;
 
 import com.jocosero.odd_water_mobs.OddWaterMobs;
-import com.jocosero.odd_water_mobs.entity.custom.AnglerfishEntity;
 import com.jocosero.odd_water_mobs.entity.custom.CoelacanthEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

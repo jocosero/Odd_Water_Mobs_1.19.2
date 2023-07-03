@@ -2,7 +2,7 @@ package com.jocosero.odd_water_mobs.particle.custom;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,11 +37,18 @@ public class HydrothermalSmoke extends TextureSheetParticle {
             this.xd += this.random.nextFloat() / 5000.0F * (float) (this.random.nextBoolean() ? 1 : -1);
             this.zd += this.random.nextFloat() / 5000.0F * (float) (this.random.nextBoolean() ? 1 : -1);
             this.yd -= this.gravity;
+            // Check if the particle is underwater
+            if (this.level.getFluidState(new BlockPos(this.x, this.y + 1, this.z)).isEmpty()) {
+                this.remove();
+                return;
+            }
+
             this.move(this.xd, this.yd, this.zd);
         } else {
             this.remove();
         }
     }
+
     @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;

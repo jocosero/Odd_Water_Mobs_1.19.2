@@ -12,8 +12,8 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SeafloorWander extends RandomStrollGoal {
-    private int waterChance = 0;
-    private int landChance = 0;
+    private int waterChance;
+    private int landChance;
     private int range = 5;
 
     public SeafloorWander(PathfinderMob creature, double speed, int waterChance, int landChance) {

@@ -14,7 +14,6 @@ import java.util.EnumSet;
 
 public class LeaveWater extends Goal {
     private final PathfinderMob creature;
-    private final int executionChance = 30;
     private BlockPos targetPos;
 
     public LeaveWater(PathfinderMob creature) {
@@ -23,6 +22,7 @@ public class LeaveWater extends Goal {
     }
 
     public boolean canUse() {
+        int executionChance = 30;
         if (this.creature.level.getFluidState(this.creature.blockPosition()).is(FluidTags.WATER) && (this.creature.getTarget() != null || this.creature.getRandom().nextInt(executionChance) == 0)) {
             if (this.creature instanceof SeafloorAnimal && ((SeafloorAnimal) this.creature).shouldLeaveWater()) {
                 targetPos = generateTarget();
